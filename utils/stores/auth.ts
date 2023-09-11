@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia'
+import { login as APILogin, logout as APILogout } from '@/utils/api/auth'
+import { Base64 } from 'js-base64'
 
 export const useAuthStore = defineStore({
    id: 'auth',
@@ -22,5 +24,28 @@ export const useAuthStore = defineStore({
       getUser: (state) : Model.User => state.user,
       getAuthToken: (state) : Model.User.Token => state.token,
       isAuthenticated: (state) : boolean => state.token ? true : false
+   },
+
+   actions: {
+      async login(payload: API.Request.Login) {
+         await APILogin(payload)
+            .then((resp) => {
+               this.user = resp.user
+               this.token = resp.token
+               localStorage.setItem('user', JSON.stringify(resp.user))
+               localStorage.setItem('api-token', JSON.stringify(resp.token))
+            })
+      },
+
+      async logout() {
+         const userId = Base64.encode(this.getUser.id!.toString(), true)
+
+         await APILogout(userId)
+            .then(() => {
+               this.$reset()
+               localStorage.removeItem('user')
+               localStorage.removeItem('api-token')
+            })
+      }
    }
 })
