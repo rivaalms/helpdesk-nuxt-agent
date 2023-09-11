@@ -33,7 +33,16 @@ export default defineNuxtConfig({
 		"@pinia/nuxt",
 		"@pinia-plugin-persistedstate/nuxt",
 		"@vee-validate/nuxt",
+		"@nuxt/ui"
 	],
+
+	ui: {
+		global: true,
+	},
+
+	colorMode: {
+		preference: 'light',
+	},
 
 	css: ['~/assets/css/_main.css'],
 
