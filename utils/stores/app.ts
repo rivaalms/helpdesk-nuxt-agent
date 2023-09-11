@@ -26,6 +26,10 @@ export const useAppStore = defineStore({
       }
    }),
 
+   getters: {
+      getTitle: (store) : string | null => store.title
+   },
+
    actions: {
       clearDialog() {
          this.dialog.show = false
