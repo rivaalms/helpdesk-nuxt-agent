@@ -44,6 +44,13 @@ export default defineNuxtConfig({
 		},
 	},
 
+	imports: {
+		presets: [
+			{ from: '@/utils/stores/app', imports: ['useAppStore'] },
+			{ from: '@/utils/stores/auth', imports: ['useAuthStore'] },
+		]
+	},
+
 	vite: {
 		define: {
 			"process.env.DEBUG": false,
