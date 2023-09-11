@@ -29,11 +29,20 @@ export default defineNuxtConfig({
 		},
 	},
 
-   modules: [
-      '@pinia/nuxt',
-      '@pinia-plugin-persistedstate/nuxt',
-      '@vee-validate/nuxt'
-   ],
+	modules: [
+		"@pinia/nuxt",
+		"@pinia-plugin-persistedstate/nuxt",
+		"@vee-validate/nuxt",
+	],
+
+	css: ['~/assets/css/_main.css'],
+
+	postcss: {
+		plugins: {
+			tailwindcss: {},
+			autoprefixer: {},
+		},
+	},
 
 	vite: {
 		define: {
