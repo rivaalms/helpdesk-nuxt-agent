@@ -29,6 +29,12 @@ export default defineNuxtConfig({
 		},
 	},
 
+   modules: [
+      '@pinia/nuxt',
+      '@pinia-plugin-persistedstate/nuxt',
+      '@vee-validate/nuxt'
+   ],
+
 	vite: {
 		define: {
 			"process.env.DEBUG": false,
