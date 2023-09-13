@@ -38,6 +38,14 @@ export default defineNuxtConfig({
 
 	ui: {
 		global: true,
+		safelistColors: [
+			'primary',
+			'sky',
+			'green',
+			'red',
+			'amber',
+			'gray'
+		]
 	},
 
 	colorMode: {
