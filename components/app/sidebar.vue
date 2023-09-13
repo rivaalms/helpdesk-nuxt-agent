@@ -21,6 +21,6 @@ const routes = [
 ]
 
 const ui = {
-   active: 'text-primary-700 dark:text-white before:bg-primary-100 dark:before:bg-primary-800',
+   active: 'text-primary-700 dark:text-white before:bg-primary-100 dark:before:bg-primary-500/50',
 }
 </script>
