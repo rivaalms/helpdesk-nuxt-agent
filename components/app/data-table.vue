@@ -63,12 +63,14 @@
             </u-tooltip>
 
             <u-popover>
-               <u-button
-                     icon="i-heroicons-tag"
-                     variant="ghost"
-                     color="green"
-                     :ui="actionsBtnUI"
-                  ></u-button>
+               <u-tooltip text="Update status">
+                  <u-button
+                        icon="i-heroicons-tag"
+                        variant="ghost"
+                        color="green"
+                        :ui="actionsBtnUI"
+                     ></u-button>
+               </u-tooltip>
 
                   <template #panel>
                      <div class="px-4 py-2">
