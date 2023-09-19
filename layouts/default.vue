@@ -1,5 +1,5 @@
 <template>
-<div class="relative h-screen dark:bg-gray-800">
+<div class="relative h-screen dark:bg-gray-800 overflow-y-hidden">
    <app-header class="aboslute left-0 top-0 border-b-[1px] dark:border-b-gray-800"></app-header>
 
    <div class="flex h-[calc(100dvh-64px)] overflow-hidden">
