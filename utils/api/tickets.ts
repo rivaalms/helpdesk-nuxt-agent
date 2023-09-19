@@ -1,5 +1,5 @@
-export async function get (payload?: any) : Promise <Model.Ticket[]> {
-   const response = await $fetch <API.ResponseAPI <Model.Ticket[]>> (`/tickets`, {
+export async function get (payload?: API.Request.GetTicket) : Promise <API.PaginatedData <Model.Ticket[]>> {
+   const response = await $fetch <API.ResponseAPI <API.PaginatedData <Model.Ticket[]>>> (`/tickets`, {
       method: 'GET',
       query: payload
    })
