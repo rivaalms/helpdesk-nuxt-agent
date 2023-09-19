@@ -20,7 +20,7 @@
                   v-model="filter.status"
                   :options="statusOptions"
                   option-attribute="name"
-                  @update:model-value="fetchTickets"
+                  @update:model-value="fetchTickets()"
                >
                   <template #label>
                      {{ filter.status?.name }}
@@ -35,7 +35,7 @@
                   v-model="filter.priority"
                   :options="priorityOptions"
                   option-attribute="name"
-                  @update:model-value="fetchTickets"
+                  @update:model-value="fetchTickets()"
                >
                   <template #label>
                      {{ filter.priority?.name }}
@@ -50,7 +50,7 @@
                   v-model="filter.category"
                   :options="categoryOptions"
                   option-attribute="name"
-                  @update:model-value="fetchTickets"
+                  @update:model-value="fetchTickets()"
                >
                   <template #label>
                      {{ filter.category?.name }}
@@ -74,11 +74,11 @@ useHead({ title: store.getTitle })
 const loading : Ref <boolean> = ref(false)
 const tickets : Ref <any> = ref(null)
 
-const statusOptions : Ref <any> = ref(await useStatusFilter())
-const priorityOptions : Ref <any> = ref(await usePriorityFilter())
-const categoryOptions : Ref <any> = ref(await useCategoryFilter())
+const statusOptions : Ref <Model.Status[]> = ref(await useStatusFilter())
+const priorityOptions : Ref <Model.Priority[]> = ref(await usePriorityFilter())
+const categoryOptions : Ref <Model.Category[]> = ref(await useCategoryFilter())
 
-const filter : Ref <any> = ref({
+const filter : Ref <Filter> = ref({
    status: statusOptions.value.at(0),
    priority: priorityOptions.value.at(-1),
    category: categoryOptions.value.at(-1)
@@ -88,15 +88,18 @@ onBeforeMount(async () => {
    await fetchTickets({ per_page: 10 })
 })
 
-const fetchTickets = async (payload?: any) => {
+const fetchTickets = async (payload?: API.Request.GetTicket) => {
    loading.value = true
    const queryFilter = {
-      status: filter.value.status.id,
-      priority: filter.value.priority.id,
-      category: filter.value.category.id
+      ...payload,
+      per_page: payload?.per_page || 10,
+      status: filter.value.status!.id!,
+      priority: filter.value.priority!.id!,
+      category: filter.value.category!.id!,
+      assignee: authStore.getUser.id!,
    }
 
-   await GetTickets({ ...payload, assignee: authStore.getUser.id, ...queryFilter })
+   await GetTickets(queryFilter)
       .then((resp) => {
          tickets.value = resp
       })
@@ -106,5 +109,11 @@ const fetchTickets = async (payload?: any) => {
       .finally(() => {
          loading.value = false
       })
+}
+
+type Filter = {
+   status?: Model.Status
+   priority?: Model.Priority
+   category?: Model.Category
 }
 </script>
