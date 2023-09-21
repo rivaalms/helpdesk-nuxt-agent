@@ -14,6 +14,8 @@ declare namespace Model {
       interface Userable {
          id: number | null
          rating: number | string | null
+         departement?: any
+         departement_id?: number
       }
       
       type Token = string | null

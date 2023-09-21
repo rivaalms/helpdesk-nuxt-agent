@@ -7,6 +7,14 @@ export async function get (payload?: API.Request.GetTicket) : Promise <API.Pagin
    return response.data!
 }
 
+export async function getDetails (ticket_id: string) : Promise <Model.Ticket> {
+   const response = await $fetch <API.ResponseAPI <Model.Ticket>> (`/tickets/${ticket_id}`, {
+      method: 'GET'
+   })
+
+   return response.data!
+}
+
 export async function getStats (agentId: string) : Promise <any> {
    const response = await $fetch <API.ResponseAPI <any>> (`/tickets/agent-statistics/${agentId}`, {
       method: 'GET'

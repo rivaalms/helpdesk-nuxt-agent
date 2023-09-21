@@ -59,6 +59,7 @@
                   icon="i-heroicons-eye"
                   variant="ghost"
                   :ui="actionsBtnUI"
+                  @click.stop="navigateToDetails(row.id)"
                ></u-button>
             </u-tooltip>
 
@@ -193,5 +194,10 @@ const updateStatus = async (statusId: number, ticket: Model.Ticket) : Promise <v
          status.value = null
          fetchData()
       })
+}
+
+const navigateToDetails = (ticket_id: number) => {
+   const ticketId = Base64.encode(ticket_id.toString(), true)
+   return useRouter().push(`/tickets/${ticketId}`)
 }
 </script>
