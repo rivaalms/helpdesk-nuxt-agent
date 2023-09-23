@@ -112,6 +112,8 @@ import { updateInfo } from '@/utils/api/tickets'
 import { Base64 } from 'js-base64'
 import moment from 'moment'
 
+const store = useAppStore()
+
 const props = defineProps([
    'data',
    'header',
@@ -187,9 +189,8 @@ const updateStatus = async (statusId: number, ticket: Model.Ticket) : Promise <v
    }
 
    await updateInfo(ticketId, payload)
-      .then(resp => {
-         console.log(resp)
-      })
+      .then(resp => store.showNotification('success', resp))
+      .catch((error: any) => store.showNotification('error', error.data.message))
       .finally(() => {
          status.value = null
          fetchData()

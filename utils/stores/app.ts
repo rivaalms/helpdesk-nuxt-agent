@@ -7,23 +7,11 @@ export const useAppStore = defineStore({
    state: () : Store.App.State => ({
       title: null,
 
-      alert: {
-         type: null,
-         text: null,
-         show: false
-      },
-
       dialog: {
          type: null,
          data: null,
          show: false
       },
-
-      snackbar: {
-         type: null,
-         text: null,
-         show: false
-      }
    }),
 
    getters: {
@@ -40,13 +28,37 @@ export const useAppStore = defineStore({
          }, 200)
       },
 
-      clearAlert() {
-         this.alert.show = false
+      showNotification(type: Store.App.NotificationType, description: string) {
+         const toast = useToast()
+         let title, icon, color = ''
 
-         setTimeout(() => {
-            this.alert.text = null
-            this.alert.type = null
-         }, 200)
+         switch (type) {
+            case 'error':
+               title = 'Error'
+               icon = 'i-heroicon-x-circle'
+               color = 'red'
+               break
+            case 'info':
+               title = 'Info'
+               icon = 'i-heroicon-exclamation-circle'
+               color = 'primary'
+               break
+            case 'success':
+               title = 'Success'
+               icon = 'i-heroicon-check-circle'
+               color = 'green'
+               break
+            default:
+               break
+         }
+
+         toast.add({
+            title,
+            description,
+            timeout: 5000,
+            icon,
+            color,
+         })
       }
    }
 })

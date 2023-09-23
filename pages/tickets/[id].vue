@@ -312,10 +312,11 @@ const submitReply = async (markAsDone: boolean) : Promise<any> => {
             })
                .then(async (resp) => {
                   await GetTicketDetails(route.params.id.toString())
-                     .then((resp) => {
-                        ticket.value = resp
-                     })
+                     .then((resp) => ticket.value = resp)
+
+                  store.showNotification('success', resp)
                })
+               .catch((error: any) => store.showNotification('error', error.data.message))
          }
 
          await GetReplies(route.params.id.toString())
@@ -323,7 +324,10 @@ const submitReply = async (markAsDone: boolean) : Promise<any> => {
                replies.value = resp
                reply.value = ""
             })
+
+         store.showNotification('success', resp)
       })
+      .catch((error: any) => store.showNotification('error', error.data.message))
 }
 
 const updateTicket = async (priority_id: number, status_id: number) => {
@@ -339,6 +343,8 @@ const updateTicket = async (priority_id: number, status_id: number) => {
             .then((resp) => {
                ticket.value = resp
             })
+         store.showNotification('success', resp)
       })
+      .catch((error) => store.showNotification('error', error.data.message))
 }
 </script>

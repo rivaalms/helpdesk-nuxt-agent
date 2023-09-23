@@ -10,8 +10,8 @@
       <div class="flex-1 overflow-y-scroll p-2 bg-gray-100 dark:bg-gray-900">
          <slot/>
       </div>
-      
    </div>
+   <u-notifications />
 </div>
 </template>
 
