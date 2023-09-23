@@ -8,8 +8,11 @@ export async function get (payload?: API.Request.GetTicket) : Promise <API.Pagin
 }
 
 export async function getDetails (ticket_id: string) : Promise <Model.Ticket> {
-   const response = await $fetch <API.ResponseAPI <Model.Ticket>> (`/tickets/${ticket_id}`, {
-      method: 'GET'
+   const response = await $fetch <API.ResponseAPI <Model.Ticket>> (`/ticket`, {
+      method: 'GET',
+      params: {
+         id: ticket_id
+      }
    })
 
    return response.data!
